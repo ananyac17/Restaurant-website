@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Registration</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+	</script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="./css/main.css">
+	<link rel="stylesheet" type="text/css" href="style.css" />
+
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+
+			$( "#form1" ).submit(function(event) {
+				event.preventDefault();
+
+				$.ajax({
+					type: 'POST',
+					url: '/register',
+					data: $('#form1').serialize(),
+					dataType: "json",
+					success: function(response){
+						//alert("a");
+						//console.log(response.Success);
+						$('#form1')[0].reset();
+
+						document.getElementById("check").innerHTML=response.Success;
+         					//ADD THIS CODE
+         					setTimeout(function(){
+         						document.getElementById("check").innerHTML="";
+         					},3000);
+         					if (response.Success=="You are registered,You can login now.") {
+         						document.getElementById("aa").click();
+         					};
+         				},
+         				error: function() {
+         				}
+         			})
+			});
+		});
+	</script>
+	<style>
+		
+		
+		body {
+  background-image: url("media/new/5.jpeg");
+}
+	</style>
+</head>
+<body>
+
+	<div class="col-md-4 col-md-offset-4">
+		<div>
+			<h1>Registration</h1>
+		</div>
+
+		<nav>
+			
+			
+			<a href="https://www.facebook.com/"><img src="media/icon/fb2.png" /></a>
+			<a href="https://www.instagram.com/"><img src="media/icon/insta2.png" /></a>
+			<a href="https://twitter.com/home?lang=en"><img src="media/icon/tt2.png" /></a>
+	  
+			<img src="media/icon/user.png" class="menu" onclick="sideMenu(0)" alt="menu" />
+		  </nav>
+		  <br>
+		<div class="form-group">
+			<form id="form1" method="post">
+				<input type="email" name="email" placeholder="E-mail" required="" class="form-control"><br/>
+				<input type="password" name="password" placeholder="Password" required="" class="form-control"><br/>
+				<input type="password" name="passwordconf" placeholder="Confirm Password" required="" class="form-control"><br/>
+		
+				<input type="text" name="userFirstName" placeholder="First Name" required="" class="form-control"><br/>
+				<input type="text" name="userLastName" placeholder="Last Name" required="" class="form-control"><br/>
+				<input type="text" name="mobile" placeholder="Mobile Number" required="" class="form-control"><br/>
+				<input type="text" name="country" placeholder="Enter Country" required="" class="form-control"><br/>
+				<input type="text" name="address" placeholder="Enter Address" required="" class="form-control"><br/>
+				
+
+				<input type="submit" value="Register" class="btn btn-success">
+			</form>
+		</div>
+		
+		<div class="mssg bg-danger">
+			<span id="check"></span>
+		</div>
+		<div>
+			<span>Already Registered! <a href="/login">Login</a></span>
+		</br>
+			<span> <a href="/index">Go to homepage</a></span>
+		</div>
+		<div id="LangTable"><a href="/login" id="aa"></a>
+		</div>
+	</div>
+</body>
+</html>
